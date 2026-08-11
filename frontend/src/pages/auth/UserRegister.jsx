@@ -49,11 +49,11 @@ const UserRegister = () => {
 
                 <nav className='text-center text-m mt-0.5 text-slate-600'>
                     <strong className='font-semibold text-slate-300'>Switch:</strong>{' '}
-                    <Link to='/user/register' className='text-blue-600'>
+                    <Link to='/user/register' className='text-blue-600 hover:text-blue-400 transition-colors duration-20'>
                         User
                     </Link>
                     <span className='text-slate-300 px-1'>•</span>
-                    <Link to='/food-partner/register' className='text-blue-600'>
+                    <Link to='/food-partner/register' className='text-blue-600 hover:text-blue-400 transition-colors duration-20'>
                         Food partner
                     </Link>
                 </nav>
@@ -84,12 +84,12 @@ const UserRegister = () => {
                         <input className='border-2 border-solid border-slate-600 bg-slate-700 py-2 px-2 w-full rounded-sm text-slate-100 outline-none min-w-0' type="password" id="password" name='password' placeholder='••••••••' required autoComplete='new-password' />
                     </div>
 
-                    <button className='mt-1 bg-blue-500 text-white border-none py-2.5 px-4 font-semibold rounded-sm cursor-pointer tracking-wide inline-flex items-center justify-center gap-1.5' type='submit'>Sign Up</button>
+                    <button className='mt-1 bg-blue-500 text-white border-none py-2.5 px-4 font-semibold rounded-sm cursor-pointer tracking-wide inline-flex items-center justify-center gap-1.5 hover:bg-blue-600 hover:scale-[1.03] transition-all duration-200' type='submit'>Sign Up</button>
                 </form>
 
                 <div className='text-center mt-4 text-slate-400'>
                     Already have an account?
-                    <Link className='text-blue-500' to='/user/login'>{' '}Sign in</Link>
+                    <Link className='text-blue-600 hover:text-blue-400 transition-colors duration-200' to='/user/login'>{' '}Sign in</Link>
                 </div>
             </div>
         </div>
