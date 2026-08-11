@@ -11,7 +11,7 @@ const Home = () => {
         const fetchFoods = async () => {
             try {
                 const response = await axios.get(
-                    'http://localhost:3000/api/food',
+                    `${import.meta.env.VITE_API_URL}/api/food`,
                     { withCredentials: true }
                 )
 
