@@ -18,7 +18,7 @@ const UserLogin = () => {
             },{
                 withCredentials: true
             })
-            navigate('/');
+            navigate('/home');
             console.log(response.data)
         }
         catch(err){
