@@ -15,6 +15,10 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('/healthz', (req, res) => {
+    res.status(200).send('OK')
+})
+
 app.use('/api/auth', authRoutes);
 app.use('/api/food', foodRoutes);
 app.use('/api/food-partner', foodPartnerRoutes);
