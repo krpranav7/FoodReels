@@ -14,7 +14,7 @@ const Saved = () => {
                     { withCredentials: true }
                 )
 
-                const savedFoods = response.data.savedFoods.map((item) => ({
+                const savedFoods = response.data.savedFoods.filter((item) => itemm.food).map((item) => ({ // sakip saves pointing to deleted food docs
                     _id: item.food._id,
                     video: item.food.video,
                     description: item.food.description,
