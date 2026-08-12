@@ -101,8 +101,16 @@ async function likeFood(req, res) {
         })
     }
     catch (err) {
+        if (err.code === 11000) {
+            // duplicate like caused by a race condition (e.g. rapid double-click)
+            return res.status(200).json({
+                message: "Food already liked",
+                like: true
+            });
+        }
+ 
         console.error(err);
-
+ 
         res.status(500).json({
             message: "Internal server error"
         });
@@ -150,8 +158,16 @@ async function saveFood(req, res) {
         })
     }
     catch (err) {
+        if (err.code === 11000) {
+            // duplicate save caused by a race condition (e.g. rapid double-click)
+            return res.status(200).json({
+                message: "Food already saved",
+                save: true
+            });
+        }
+ 
         console.error(err);
-
+ 
         res.status(500).json({
             message: "Internal server error"
         });

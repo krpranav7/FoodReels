@@ -10,3 +10,6 @@ frontend/node_modules/
 
 # Local files
 Revision.txt
+
+# Local test video files (not meant to be committed)
+backend/videos/

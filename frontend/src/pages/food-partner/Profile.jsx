@@ -123,24 +123,14 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className='grid grid-cols-2 gap-6 border-t border-dashed border-slate-700 pt-6'>
+        <div className='grid grid-cols-1 gap-6 border-t border-dashed border-slate-700 pt-6'>
           <div className='grid justify-items-center gap-2'>
             <span className='text-[1.15rem] text-slate-400 max-[420px]:text-base'>
               total meals
             </span>
 
             <span className='text-[2rem] font-extrabold max-[420px]:text-2xl'>
-              {profile?.totalMeals}
-            </span>
-          </div>
-
-          <div className='grid justify-items-center gap-2'>
-            <span className='text-[1.15rem] text-slate-400 max-[420px]:text-base'>
-              customer served
-            </span>
-
-            <span className='text-[2rem] font-extrabold max-[420px]:text-2xl'>
-              {profile?.customersServed}
+              {videos.length}
             </span>
           </div>
         </div>

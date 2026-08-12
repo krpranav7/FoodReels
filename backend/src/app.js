@@ -23,4 +23,19 @@ app.use('/api/auth', authRoutes);
 app.use('/api/food', foodRoutes);
 app.use('/api/food-partner', foodPartnerRoutes);
 
+// 404 handler
+app.use((req, res) => {
+    res.status(404).json({
+        message: "Route not found"
+    });
+});
+
+// global error handler (catches errors passed via next(err) or thrown in async route handlers)
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(err.status || 500).json({
+        message: "Internal server error"
+    });
+});
+
 module.exports = app;

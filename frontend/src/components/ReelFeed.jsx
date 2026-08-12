@@ -150,6 +150,10 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
                             </div>
 
                             <div className='relative w-full p-6 pb-[calc(env(safe-area-inset-bottom,0px)+72px)] flex flex-col pr-16 gap-4 pointer-events-auto'> {/*reel-content */} {/*position: relative. "I can be a reference point for my absolute children." */}
+                                {item.name && (
+                                     <h3 className='text-white text-shadow-sm text-shadow-black/40 text-lg font-bold leading-snug'>{/*reel-name */} {item.name}</h3>
+                                )}
+
                                 <p className='text-white text-shadow-sm text-shadow-black/40 text-base leading-snug line-clamp-2 max-w-[90ch]' title={item.description}>{/*reel-description */} {item.description}</p>
                                 {item.foodPartner && (<Link className='self-start bg-blue-500 text-white rounded-full py-2.5 px-4 font-bold tracking-wide no-underline shadow-md ease-base hover:bg-blue-600 hover:scale-[1.03] transition-all duration-200' to={"/food-partner/" + item.foodPartner}>Visit Store</Link>)}
                             </div>

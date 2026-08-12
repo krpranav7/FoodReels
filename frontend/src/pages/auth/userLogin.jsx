@@ -66,7 +66,7 @@ const UserLogin = () => {
                     
                     <div className='flex flex-col gap-1'>
                         <label className='text-xs tracking-wider py-0.5 font-semibold text-slate-400' htmlFor="password">PASSWORD</label>
-                        <input className='border-2 border-solid border-slate-600 bg-slate-700 py-2 px-2 w-full rounded-sm text-slate-100 outline-none min-w-0' type="password" id="password" name='password' placeholder='••••••••' required autoComplete='new-password' />
+                        <input className='border-2 border-solid border-slate-600 bg-slate-700 py-2 px-2 w-full rounded-sm text-slate-100 outline-none min-w-0' type="password" id="password" name='password' placeholder='••••••••' required autoComplete='current-password' />
                     </div>
 
                     <button className='mt-1 bg-blue-500 text-white border-none py-2.5 px-4 font-semibold rounded-sm cursor-pointer tracking-wide inline-flex items-center justify-center gap-1.5 hover:bg-blue-600 hover:scale-[1.03] transition-all duration-200' type='submit'>Sign in</button>

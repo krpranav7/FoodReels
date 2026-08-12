@@ -15,5 +15,9 @@ const likesSchema = new mongoose.Schema({
     timestamps: true
 })
 
+likesSchema.index({ user: 1, food: 1 }, { unique: true });
+
+
 const likesModel = mongoose.model('like', likesSchema);
+
 module.exports = likesModel;

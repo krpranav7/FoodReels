@@ -16,6 +16,7 @@ const Saved = () => {
 
                 const savedFoods = response.data.savedFoods.filter((item) => item.food).map((item) => ({ // sakip saves pointing to deleted food docs
                     _id: item.food._id,
+                    name: item.food.name,
                     video: item.food.video,
                     description: item.food.description,
                     likesCount: item.food.likesCount,
