@@ -159,6 +159,7 @@ async function saveFood(req, res) {
 }
 
 async function getSavedFood(req, res) {
+    res.set("Cache-Control", "no-store")
     try {
         const user = req.user;
         const savedFoods = await savesModel.find({ user: user._id }).populate('food');
