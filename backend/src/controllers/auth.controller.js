@@ -34,7 +34,7 @@ async function registerUser(req, res) {
     res.cookie("token", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "none"
+        sameSite: "lax"
     });
 
     res.status(201).json({
@@ -73,7 +73,7 @@ async function loginUser(req, res) {
     res.cookie("token", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "none"
+        sameSite: "lax"
     });
 
     res.status(200).json({
@@ -90,7 +90,7 @@ async function logoutUser(req, res) {
     res.clearCookie("token", {
         httpOnly: true,
         secure: true,
-        sameSite: "none"
+        sameSite: "lax"
     });
     res.status(200).json({
         message: "User logged out successfully"
@@ -127,7 +127,7 @@ async function registerFoodPartner(req, res) {
     res.cookie("token", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "none"
+        sameSite: "lax"
     });
 
     res.status(201).json({
@@ -167,7 +167,7 @@ async function loginFoodPartner(req, res) {
     res.cookie("token", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "none"
+        sameSite: "lax"
     });
 
     res.status(200).json({
@@ -187,7 +187,7 @@ function logoutFoodPartner(req, res) {
     res.clearCookie("token", {
         httpOnly: true,
         secure: true,
-        sameSite: "none"
+        sameSite: "lax"
     });
     res.status(200).json({
         message: "Food partner logged out successfully"
