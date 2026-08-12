@@ -44,11 +44,11 @@ const UserLogin = () => {
 
                 <nav className='text-center text-m mt-0.5 text-slate-600'>
                     <strong className='font-semibold text-slate-300'>Switch:</strong>{' '}
-                    <Link to='/user/register' className='text-blue-600 hover:text-blue-400 transition-colors duration-200'>
+                    <Link to='/user/login' className='text-blue-600 hover:text-blue-400 transition-colors duration-200'>
                         User
                     </Link>
                     <span className='text-slate-300 px-1'>•</span>
-                    <Link to='/food-partner/register' className='text-blue-600 hover:text-blue-400 transition-colors duration-200'>
+                    <Link to='/food-partner/login' className='text-blue-600 hover:text-blue-400 transition-colors duration-200'>
                         Food partner
                     </Link>
                 </nav>
