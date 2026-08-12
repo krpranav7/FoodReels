@@ -10,7 +10,7 @@ const Saved = () => {
         const fetchSavedFoods = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:3000/api/food/save",
+                    `${import.meta.env.VITE_API_URL}/api/food/save`,
                     { withCredentials: true }
                 )
 
@@ -39,7 +39,7 @@ const Saved = () => {
     const removeSaved = async (item) => {
         try {
             await axios.post(
-                "http://localhost:3000/api/food/save",
+                `${import.meta.env.VITE_API_URL}/api/food/save`,
                 { foodId: item._id },
                 { withCredentials: true }
             )

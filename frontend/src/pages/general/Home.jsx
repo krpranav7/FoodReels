@@ -33,7 +33,7 @@ const Home = () => {
 
     async function likeVideo(item){
         try{
-            const response = await axios.post("http://localhost:3000/api/food/like", {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/food/like`, {
                 foodId: item._id
             },{
                 withCredentials: true
@@ -55,7 +55,7 @@ const Home = () => {
 
     async function saveVideo(item){
         try{
-            const response = await axios.post("http://localhost:3000/api/food/save", {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/food/save`, {
                 foodId: item._id
             },{
                 withCredentials: true
