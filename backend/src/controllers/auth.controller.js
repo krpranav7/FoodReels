@@ -131,7 +131,7 @@ async function googleLoginUser(req, res){
         }
 
         const ticket = await googleClient.verifyIdToken({
-            idToke: credential,
+            idToken: credential,
             audience: process.env.GOOGLE_CLIENT_ID
         });
         const payload = ticket.getPayload();
@@ -159,6 +159,7 @@ async function googleLoginUser(req, res){
             await user.save();
         }
 
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
