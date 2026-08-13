@@ -1,6 +1,9 @@
+import { GoogleLogin } from '@react-oauth/google'
+
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
 
 const UserLogin = () => {
     const [error, setError] = useState("");
@@ -30,6 +33,26 @@ const UserLogin = () => {
             }
         }
     };
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try{
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/google`, {
+                Credential: credentialResponse.credentialResponse
+            },{
+                withCredentials: true
+            });
+            navigate('/home');
+        }
+        catch(err){
+            if(err.response){
+                setError(err.response.data.message);
+            }
+            else{
+                setError("Google sign-in failed. Please try again");
+            }
+        }
+    };
+
     return (
         <div className='min-h-dvh flex justify-center items-center py-8 px-4 bg-radial from-slate-800 to-gray-950'>
             <div className='bg-linear-to-b from-sky-950 via-slate-900 to-gray-900 w-full max-w-md px-6 py-6 rounded-lg border-2 border-solid border-gray-700 shadow-xl shadow-black'>
@@ -71,6 +94,10 @@ const UserLogin = () => {
 
                     <button className='mt-1 bg-blue-500 text-white border-none py-2.5 px-4 font-semibold rounded-sm cursor-pointer tracking-wide inline-flex items-center justify-center gap-1.5 hover:bg-blue-600 hover:scale-[1.03] transition-all duration-200' type='submit'>Sign in</button>
                 </form>
+
+                <div className='flex justify-center mt-4'>
+                    <GoogleLogin onSuccess = {handleGoogleSuccess} onError={()=>setError("Google sign-in failed. Please try again")}></GoogleLogin>
+                </div>
 
                 <div className='text-center mt-4 text-slate-400'>
                     New Here?

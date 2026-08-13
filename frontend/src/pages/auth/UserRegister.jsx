@@ -1,3 +1,5 @@
+import { GoogleLogin } from '@react-oauth/google'
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,6 +33,25 @@ const UserRegister = () => {
             } 
             else {
                 setError("Something went wrong. Please try again.");
+            }
+        }
+    };
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try{
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/google`, {
+                Credential: credentialResponse.credentialResponse
+            },{
+                withCredentials: true
+            });
+            navigate('/home');
+        }
+        catch(err){
+            if(err.response){
+                setError(err.response.data.message);
+            }
+            else{
+                setError("Google sign-in failed. Please try again");
             }
         }
     };
@@ -86,6 +107,10 @@ const UserRegister = () => {
 
                     <button className='mt-1 bg-blue-500 text-white border-none py-2.5 px-4 font-semibold rounded-sm cursor-pointer tracking-wide inline-flex items-center justify-center gap-1.5 hover:bg-blue-600 hover:scale-[1.03] transition-all duration-200' type='submit'>Sign Up</button>
                 </form>
+
+                <div className='flex justify-center mt-4'>
+                    <GoogleLogin onSuccess = {handleGoogleSuccess} onError={()=>setError("Google sign-in failed. Please try again")}></GoogleLogin>
+                </div>
 
                 <div className='text-center mt-4 text-slate-400'>
                     Already have an account?

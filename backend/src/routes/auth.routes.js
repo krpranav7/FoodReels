@@ -19,4 +19,6 @@ router.get(
     authController.getCurrentUser
 );
 
+router.post('/user/google', authController.googleLoginUser);
+
 module.exports = router;

@@ -1,3 +1,6 @@
+const { OAuth2Client } = require('google-auth-library');
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 const userModel = require("../models/user.model");
 const foodPartnerModel = require("../models/foodpartner.model");
 
@@ -115,6 +118,67 @@ async function loginUser(req, res) {
         res.status(500).json({
             message: "Internal server error"
         });
+    }
+}
+
+async function googleLoginUser(req, res){
+    try{
+        const {credential} = req.body;
+        if(!credential){
+            return res.status(400).json({
+                message: "Google credential is required"
+            });
+        }
+
+        const ticket = await googleClient.verifyIdToken({
+            idToke: credential,
+            audience: process.env.GOOGLE_CLIENT_ID
+        });
+        const payload = ticket.getPayload();
+        const {sub: googleId, email, name} = payload;
+
+        if(!email){
+            return res.status(400).json({
+                message: "Google account has no email"
+            });
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+
+        let user = await userModel.findOne({email: normalizedEmail});
+
+        if(!user){
+            user = await userModel.create({
+                fullName: name || normalizedEmail.split('@')[0],
+                email: normalizedEmail,
+                googleId
+            })
+        }
+        else if(!user.googleId){
+            user.googleId = googleId;
+            await user.save();
+        }
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "lax"
+        });
+
+        res.status(200).json({
+            message: "User logged in successfully",
+            user:{
+                _id: user._id,
+                email: user.email,
+                fullName: user.fullName
+            }
+        });
+    }
+    catch(err){
+        console.error(err);
+        res.status(401).json({
+            message: "Google sign-in failed"
+        })
     }
 }
 
@@ -276,6 +340,7 @@ module.exports = {
     registerFoodPartner,
     loginFoodPartner,
     logoutFoodPartner,
+    googleLoginUser,
 
     getCurrentUser
 }
