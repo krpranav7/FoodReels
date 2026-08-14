@@ -2,13 +2,16 @@ import { GoogleLogin } from '@react-oauth/google'
 
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const UserRegister = () => {
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const isUserActive = location.pathname === '/user/register';
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const firstName = e.target.firstName.value;
@@ -70,15 +73,16 @@ const UserRegister = () => {
                     </p>
                 </header>
 
-                <nav className='text-center text-m mt-0.5 text-slate-600'>
-                    <strong className='font-semibold text-slate-300'>Switch:</strong>{' '}
-                    <Link to='/user/register' className='text-blue-600 hover:text-blue-400 transition-colors duration-20'>
-                        User
-                    </Link>
-                    <span className='text-slate-300 px-1'>•</span>
-                    <Link to='/food-partner/register' className='text-blue-600 hover:text-blue-400 transition-colors duration-20'>
-                        Food partner
-                    </Link>
+                <nav className='flex justify-center mt-0.5'>
+                    <div className='inline-flex rounded-full border border-slate-600 bg-slate-800 p-1'>
+                        <Link className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors duration-200 ${isUserActive ? 'bg-blue-500 text-white' : 'text-blue-400 hover:text-blue-300'}`} to='/user/register'>
+                            User
+                        </Link>
+
+                        <Link className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors duration-200 ${!isUserActive ? 'bg-blue-500 text-white' : 'text-blue-400 hover:text-blue-300'}`} to='/food-partner/register'>
+                            Food Partner
+                        </Link>                        
+                    </div>
                 </nav>
 
                 <div className='flex justify-center items-center'>
