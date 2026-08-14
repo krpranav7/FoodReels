@@ -10,6 +10,7 @@ import ProtectedRoute from '../components/ProtectedRoute'
 import Saved from '../pages/general/Saved';
 import Profile from '../pages/food-partner/Profile';
 import CreateFood from '../pages/food-partner/CreateFood';
+import ProtectedFoodPartnerRoute from '../components/ProtectedFoodPartnerRoute';
 
 const AppRoutes = () => {
   return (
@@ -34,7 +35,10 @@ const AppRoutes = () => {
                   </ProtectedRoute>} />
         
         <Route path="/food-partner/:id" element={<Profile />} />
-        <Route path="/create-food" element={<CreateFood />} />
+        <Route path="/create-food" 
+        element={<ProtectedFoodPartnerRoute>
+              <CreateFood />
+            </ProtectedFoodPartnerRoute>} />
       </Routes>
     </Router>
   )

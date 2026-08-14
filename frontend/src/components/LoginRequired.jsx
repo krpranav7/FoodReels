@@ -24,12 +24,12 @@ const LoginRequired = () => {
                         Login as User
                     </Link>
 
-                    {/* <Link
+                    <Link
                         to="/food-partner/login"
                         className="rounded-lg border border-white/20 px-6 py-3 font-semibold text-white no-underline"
                     >
                         Login as Food Partner
-                    </Link> */}
+                    </Link>
 
                 </div>
 

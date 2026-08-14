@@ -334,6 +334,17 @@ async function getCurrentUser(req, res) {
     });
 }
 
+async function getCurrentFoodPartner(req, res){
+    res.status(200).json({
+        message: "Food partner is authenticated",
+        foodPartner: {
+            _id: req.foodPartner._id,
+            email: req.foodPartner.email,
+            businessName: req.foodPartner.businessName
+        }
+    })
+}
+
 module.exports = {
     registerUser,
     loginUser,
@@ -343,5 +354,6 @@ module.exports = {
     logoutFoodPartner,
     googleLoginUser,
 
-    getCurrentUser
+    getCurrentUser,
+    getCurrentFoodPartner
 }

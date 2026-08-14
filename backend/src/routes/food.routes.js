@@ -6,6 +6,16 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const multer = require('multer');
 const upload = multer({
     storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 50 * 1024 * 1024
+    },
+    // cb(new Error(...)) → reject the file, multer stops processing and passes that error down to your error-handling middleware.
+    fileFilter: (req, res, cb) => {
+        if(!file.mimetype.startsWith('video/')){
+            return cb(new Error('Only video files are allowed'));
+        }
+        cb(null, true); // cb(null, true) → accept the file, continue as normal. The null first argument means "no error," the true means "yes, keep this file."
+    }
 });
 
 // express server can't directly read any file coming from frontend(for now postman request) by default, so use MULTER package

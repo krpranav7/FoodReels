@@ -122,6 +122,13 @@ async function saveFood(req, res) {
         const { foodId } = req.body;
         const user = req.user;
 
+        const food = await foodModel.findById(foodId);
+        if(!food){
+            return res.status(404).json({
+                message: "Food not found"
+            });
+        }
+
         const isAlreadySaved = await savesModel.findOne({
             user: user._id,
             food: foodId

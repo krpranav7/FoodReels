@@ -19,6 +19,12 @@ router.get(
     authController.getCurrentUser
 );
 
+router.get(
+    '/food-partner/me',
+    authMiddleware.authFoodPartnerMiddleware,
+    authController.getCurrentFoodPartner
+);
+
 router.post('/user/google', authController.googleLoginUser);
 
 module.exports = router;
