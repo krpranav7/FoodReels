@@ -10,7 +10,7 @@ const upload = multer({
         fileSize: 50 * 1024 * 1024
     },
     // cb(new Error(...)) → reject the file, multer stops processing and passes that error down to your error-handling middleware.
-    fileFilter: (req, res, cb) => {
+    fileFilter: (req, file, cb) => {
         if(!file.mimetype.startsWith('video/')){
             return cb(new Error('Only video files are allowed'));
         }
