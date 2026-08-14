@@ -40,7 +40,7 @@ const FoodPartnerLogin = () => {
             <div className='bg-linear-to-b from-sky-950 via-slate-900 to-gray-900 w-full max-w-md px-6 py-6 rounded-lg border-2 border-solid border-gray-700 shadow-xl shadow-black'>
                 <header className='text-center'>
                     <h1 className='flex items-center justify-center text-blue-100 text-2xl tracking-wide mb-1'>
-                        <img src="/favicon-2.png" alt="" className="inline-block w-5.5 h-5.5 mr-1.5 pb- align-middle"/>
+                        <img src="/favicon.png" alt="" className="inline-block w-5.5 h-5.5 mr-1.5 pb- align-middle"/>
                         Food Partner Login
                     </h1>
                     <p className='text-slate-400 mb-1.5'>
