@@ -210,9 +210,9 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
 
                         {activeCommentsFoodId === item._id && (
                             <div className='absolute inset-0 z-60 flex items-end pointer-events-auto' onClick={closeComments}>
-                                <div className='absolute inset-0 bg-black/60' />
+                                <div className='absolute inset-0 bg-black/70' />
                                 <div
-                                    className='relative w-full max-h-[70vh] bg-gray-900 rounded-t-2xl flex flex-col'
+                                    className='relative w-full max-h-[70vh] bg-black/80 backdrop-blur-md rounded-t-2xl flex flex-col'
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <div className='flex items-center justify-between px-4 py-3 border-b border-white/10'>
@@ -245,7 +245,7 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
                                             onChange={(e) => setNewComment(e.target.value)}
                                             onKeyDown={(e) => e.key === 'Enter' && submitComment()}
                                             placeholder='Add a comment...'
-                                            className='flex-1 bg-gray-800 text-white text-sm rounded-full px-4 py-2 outline-none border border-white/10'
+                                            className='flex-1 bg-white/10 backdrop-blur-sm text-white text-sm rounded-full px-4 py-2 outline-none border border-white/10'
                                         />
                                         <button
                                             onClick={submitComment}
