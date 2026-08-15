@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) => {
+const ReelFeed = ({items = [], onLike, onSave, onCommentAdded, emptyMessage = 'No videos yet'}) => {
     const videoRefs = useRef(new Map());
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
@@ -112,6 +112,7 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
             });
 
             setComments((prev) => [response.data.comment, ...prev]);
+            onCommentAdded?.(activeCommentsFoodId);
             setNewComment("");
         }   
         catch(err){

@@ -75,6 +75,10 @@ const Home = () => {
         }
     }
 
+    function commentAdded(foodId){
+        setFoods((prev) => prev.map((v) => v._id === foodId ? {...v, commentsCount: (v.commentsCount ?? 0) + 1} : v))
+    }
+
     if (loading) {
         return (
             <div className="h-dvh bg-black flex items-center justify-center">
@@ -88,7 +92,7 @@ const Home = () => {
             <div className='flex justify-center items-center'>
                 {error && (<p className="text-red-500 text-sm">{error}</p>)}
             </div>
-            <ReelFeed items = {foods} onLike = {likeVideo} onSave = {saveVideo} emptyMessage = "No videos available" />
+            <ReelFeed items = {foods} onLike = {likeVideo} onSave = {saveVideo} onCommentAdded={commentAdded} emptyMessage = "No videos available" />
         </>
     )
 }
