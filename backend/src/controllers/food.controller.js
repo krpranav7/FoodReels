@@ -263,6 +263,10 @@ async function getComments(req, res){
         const comments = await commentModel.find({food: foodId})
                         .sort({createdAt: -1})
                         .populate('user', 'fullName'); // the second argument 'fullName' limits what gets pulled back to just that one field (plus _id automatically)
+        res.status(200).json({
+            message: "Comments retrieved successfully",
+            comments
+        });
     }
     catch(err){
         console.error(err);
