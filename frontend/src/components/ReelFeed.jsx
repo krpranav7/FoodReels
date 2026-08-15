@@ -209,7 +209,7 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
                         </div>
 
                         {activeCommentsFoodId === item._id && (
-                            <div className='absolute inset-0 z-50 flex items-end pointer-events-auto' onClick={closeComments}>
+                            <div className='absolute inset-0 z-60 flex items-end pointer-events-auto' onClick={closeComments}>
                                 <div className='absolute inset-0 bg-black/60' />
                                 <div
                                     className='relative w-full max-h-[70vh] bg-gray-900 rounded-t-2xl flex flex-col'
