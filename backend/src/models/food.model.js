@@ -17,11 +17,15 @@ const foodSchema = new mongoose.Schema({
         ref: "foodpartner",
         required: true
     },
-    likesCount:{
+    likesCount: {
         type: Number,
         default: 0
     },
-    savesCount:{
+    savesCount: {
+        type: Number,
+        default: 0
+    },
+    commentsCount: {
         type: Number,
         default: 0
     }
