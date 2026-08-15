@@ -7,6 +7,11 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
+    const [activeCommentsFoodId, setActiveCommentsFoodId] = useState(null);
+    const [comments, setComments] = useState([]);
+    const [commentsLoading, setCommentsLoading] = useState(false);
+    const [newComment, setNewComment] = useState("");
+
     useEffect(() => {
         const handleOutsideClick = (e) => {
             // If the click was not inside the menu,
@@ -69,6 +74,50 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
             console.error('Logout failed:', error);
         }
     };
+
+    const openComments = async (foodId) => {
+        setActiveCommentsFoodId(foodId);
+        setCommentsLoading(true);
+
+        try{
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/food/comment/${foodId}`, {
+                withCredentials: true
+            });
+
+            setComments(response.data.comments);
+        }   
+        catch(err){
+            console.error('Failed to fetch comments: ', err);
+            setComments([]);
+        }
+        finally{
+            setCommentsLoading(false);
+        }
+    }
+
+    const closeComments = () => {
+        setActiveCommentsFoodId(null);
+        setComments([]);
+        setNewComment("");
+    }
+
+    const submitComment = async () => {
+        if(!newComment.trim()) return;
+
+        try{
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/food/comment`, {
+                foodId: activeCommentsFoodId, text: newComment
+            }, {
+                withCredentials: true
+            });
+
+            setComments((prev) => [response.data.comment, ...prev]);
+            setNewComment("");
+        }   
+        catch(err){
+            console.error('Failed to post comment: ', err);
+        }
+    }
 
     return (
         <div className='h-dvh bg-black overflow-hidden flex justify-center'> {/* reels-page */}
@@ -140,12 +189,12 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
                                 </div>
 
                                 <div className='flex flex-col items-center gap-1 text-white'>
-                                    <button className='w-12 h-12 rounded-full grid place-items-center text-white shadow-md border border-white/15 bg-black/35 backdrop-blur-[2px] hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer'> {/*reel-action */}
+                                    <button className='w-12 h-12 rounded-full grid place-items-center text-white shadow-md border border-white/15 bg-black/35 backdrop-blur-[2px] hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer' onClick={() => openComments(item._id)}> {/*reel-action */}
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                                         </svg>
                                     </button>
-                                    <div> {/*reel-action_count */} {item.commentsCount ?? (Array.isArray(item.comments) ? item.comments.length : 0)} </div>
+                                    <div> {/*reel-action_count */} {activeCommentsFoodId === item._id ? comments.length : item.commentsCount ?? 0} </div>
                                 </div>
                             </div>
 
@@ -158,6 +207,57 @@ const ReelFeed = ({items = [], onLike, onSave, emptyMessage = 'No videos yet'}) 
                                 {item.foodPartner && (<Link className='self-start bg-blue-500 text-white rounded-full py-2.5 px-4 font-bold tracking-wide no-underline shadow-md ease-base hover:bg-blue-600 hover:scale-[1.03] transition-all duration-200' to={"/food-partner/" + item.foodPartner}>Visit Store</Link>)}
                             </div>
                         </div>
+
+                        {activeCommentsFoodId === item._id && (
+                            <div className='absolute inset-0 z-50 flex items-end pointer-events-auto' onClick={closeComments}>
+                                <div className='absolute inset-0 bg-black/60' />
+                                <div
+                                    className='relative w-full max-h-[70vh] bg-gray-900 rounded-t-2xl flex flex-col'
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <div className='flex items-center justify-between px-4 py-3 border-b border-white/10'>
+                                        <h3 className='text-white font-semibold'>Comments</h3>
+                                        <button onClick={closeComments} className='text-slate-400 hover:text-white text-xl leading-none cursor-pointer'>
+                                            &times;
+                                        </button>
+                                    </div>
+
+                                    <div className='flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3'>
+                                        {commentsLoading && (
+                                            <p className='text-slate-400 text-sm text-center'>Loading comments...</p>
+                                        )}
+
+                                        {!commentsLoading && comments.length === 0 && (
+                                            <p className='text-slate-400 text-sm text-center'>No comments yet. Be the first!</p>
+                                        )}
+
+                                        {!commentsLoading && comments.map((comment) => (
+                                            <div key={comment._id} className='flex flex-col'>
+                                                <span className='text-slate-300 text-xs font-semibold'>{comment.user?.fullName ?? 'Unknown'}</span>
+                                                <span className='text-white text-sm'>{comment.text}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className='flex items-center gap-2 px-4 py-3 border-t border-white/10 pb-[calc(env(safe-area-inset-bottom,0px)+12px)]'>
+                                        <input
+                                            value={newComment}
+                                            onChange={(e) => setNewComment(e.target.value)}
+                                            onKeyDown={(e) => e.key === 'Enter' && submitComment()}
+                                            placeholder='Add a comment...'
+                                            className='flex-1 bg-gray-800 text-white text-sm rounded-full px-4 py-2 outline-none border border-white/10'
+                                        />
+                                        <button
+                                            onClick={submitComment}
+                                            className='text-blue-500 font-semibold text-sm px-3 py-2 cursor-pointer disabled:opacity-40'
+                                            disabled={!newComment.trim()}
+                                        >
+                                            Post
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </section>
                 ) )}
             </div>
