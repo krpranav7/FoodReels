@@ -3,18 +3,18 @@ const mongoose = require("mongoose");
 const commentSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: user,
+        ref: 'user',
         rquired: true
     },
     food: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: food,
+        ref: 'food',
         required: true
     },
     text: {
         type: String,
         required: true,
-        trime: true,
+        trim: true,
         maxlength: 500
     }
 }, {
