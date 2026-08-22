@@ -50,7 +50,7 @@ const FoodPartnerRegister = () => {
                 <header className='text-center'>
                     <h1 className='flex items-center justify-center text-blue-100 text-2xl tracking-wide mb-1'>
                         <img src="/favicon.png" alt="" className="inline-block w-5.5 h-5.5 mr-1.5 pb- align-middle"/>
-                        Partner Sign Up
+                        Food Partner Sign Up
                     </h1>
                     <p className='text-slate-400 mb-1.5'>
                         Grow Your Business With Our Platform
